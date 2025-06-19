@@ -17,12 +17,19 @@ Jane,Smith,Admins
 Created in collaboration with OpenAI's ChatGPT (2025) for peer programming and educational use.
 """
 
+import sys
 import csv
 import boto3
 from botocore.exceptions import ClientError
 
+# Import File
+if len(sys.argv) < 2:
+    print("Usage: python3 create_iam_users.py <csv_filename>")
+    sys.exit(1)
+
+CSV_FILENAME = sys.argv[1]
+
 # Constants
-CSV_FILENAME = "users.csv"
 DEFAULT_PASSWORD = "PasswordChange12345!"
 
 # Initialize IAM client
