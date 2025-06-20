@@ -13,6 +13,7 @@ firstName,lastName,awsGroup
 Example:
 John,Doe,Developers
 Jane,Smith,Admins
+Mark,Adams,networkAdmins
 
 Created in collaboration with OpenAI's ChatGPT (2025) for peer programming and educational use.
 """
