@@ -63,7 +63,7 @@ def create_iam_user(first_name, last_name, group_name):
 
 def main():
     try:
-        with open(CSV_FILENAME, mode='r', newline='') as file:
+        with open(CSV_FILENAME, mode='r', newline='', encoding='utf-8-sig') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 first_name = row['firstName'].strip()
