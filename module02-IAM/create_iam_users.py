@@ -20,6 +20,8 @@ Created in collaboration with OpenAI's ChatGPT (2025) for peer programming and e
 
 import sys
 import csv
+import unicodedata
+import re
 import boto3
 from botocore.exceptions import ClientError
 
@@ -35,6 +37,16 @@ DEFAULT_PASSWORD = "PasswordChange12345!"
 
 # Initialize IAM client
 iam = boto3.client('iam')
+
+def normalize_username(name):
+    # Normalize the string to NFKD form
+    nfkd_form = unicodedata.normalize('NFKD', name)
+    
+    # Remove accents by discarding 'combining' characters
+    no_accents = ''.join([c for c in nfkd_form if not unicodedata.combining(c)])
+    
+    # Remove any characters not allowed in IAM usernames
+    return re.sub(r'[^a-zA-Z0-9+=,.@_-]', '', no_accents)
 
 def create_iam_user(first_name, last_name, group_name):
     username = f"{first_name.lower()}.{last_name.lower()}"
@@ -63,7 +75,7 @@ def create_iam_user(first_name, last_name, group_name):
 
 def main():
     try:
-        with open(CSV_FILENAME, mode='r', newline='', encoding='iso-8859-1') as file:
+        with open(CSV_FILENAME, mode='r', newline='') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 first_name = row['firstName'].strip()
