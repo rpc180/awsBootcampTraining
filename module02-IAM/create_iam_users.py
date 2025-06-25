@@ -3,17 +3,28 @@
 """
 create_iam_users.py
 
-Reads user data from a CSV file and creates AWS IAM users accordingly.
-Each user is added to a specified IAM group, assigned a login profile with
-a default password, and forced to reset it on first login.
+Reads a CSV file of IAM users and creates them in AWS, with support for:
+  • Unicode normalization & accent-stripping (e.g., "quitéria.xavier" → "quiteria.xavier")
+  • Validation & removal of invalid IAM username characters
 
-CSV Format:
-firstName,lastName,awsGroup
+Usage:
+  python create_iam_users.py path/to/users.csv
 
-Example:
-John,Doe,Developers
-Jane,Smith,Admins
-Mark,Adams,networkAdmins
+CSV format:
+  firstName,lastName,awsGroup
+  John,Doe,Developers
+  xavier,quitéria,networkAdmins
+
+Requirements:
+  boto3, Python 3.6+, standard library modules: csv, unicodedata, re
+
+Workflow:
+  1. Reads CSV
+  2. Normalizes and sanitizes usernames
+  3. Creates IAM user via Boto3 client
+
+Examples:
+  normalize_username('cauã.setúbal') → 'caua.setubal'
 
 Created in collaboration with OpenAI's ChatGPT (2025) for peer programming and educational use.
 """
