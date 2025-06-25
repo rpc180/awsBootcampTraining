@@ -60,7 +60,7 @@ def normalize_username(name):
     return re.sub(r'[^a-zA-Z0-9+=,.@_-]', '', no_accents)
 
 def create_iam_user(first_name, last_name, group_name):
-    username = f"{first_name.lower()}.{last_name.lower()}"
+    username = normalize_username(f"{first_name.lower()}.{last_name.lower()}")
 
     try:
         # Create IAM user
