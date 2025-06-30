@@ -16,17 +16,26 @@ CSV format:
   xavier,quitéria,networkAdmins
 
 Requirements:
-  boto3, Python 3.6+, standard library modules: csv, unicodedata, re
+  Python 3.6+
+  boto3
+  Standard library modules: csv, unicodedata, re
 
 Workflow:
-  1. Reads CSV
-  2. Normalizes and sanitizes usernames
-  3. Creates IAM user via Boto3 client
+  1. Reads and parses the CSV input
+  2. Normalizes and sanitizes usernames for IAM compliance
+  3. Creates IAM users and assigns them to specified AWS groups via the Boto3 client
 
 Examples:
   normalize_username('cauã.setúbal') → 'caua.setubal'
 
-Created in collaboration with OpenAI's ChatGPT (2025) for peer programming and educational use.
+License:
+  This script is distributed under the terms of the GNU General Public License v3.0.
+  You are free to use, modify, and redistribute it under the same license.
+
+Attribution:
+  Created in collaboration with OpenAI's ChatGPT (2025) as part of a peer programming 
+  and educational exercise to enhance automation workflows in AWS IAM.
+  
 """
 
 import sys
