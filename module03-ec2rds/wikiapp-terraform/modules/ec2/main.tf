@@ -32,25 +32,16 @@ resource "aws_instance" "wikiapp" {
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   key_name               = var.key_name
 
-  user_data = <<-EOF
-              #!/bin/bash
-              yum update -y
-              yum install -y python3 unzip
-              cd /home/ec2-user
-              unzip /tmp/wikiapp-en.zip -d wikiapp
-              cd wikiapp
-              python3 app.py &
-              EOF
+user_data = templatefile("${path.module}/user_data.sh", {
+  rds_endpoint = var.rds_endpoint
+  db_username  = var.db_username
+  db_password  = var.db_password
+  db_name      = var.db_name
+})
 
   tags = {
     Name = "wikiapp-ec2"
   }
-}
-
-resource "aws_s3_object" "wikiapp_zip" {
-  bucket = "your-bucket-name"
-  key    = "wikiapp-en.zip"
-  source = var.wikiapp_zip
 }
 
 output "public_ip" {
