@@ -1,10 +1,10 @@
 #!/bin/bash
-yum update -y
-yum install -y python3 python3-devel python3-pip gcc gcc-c++ make openssl-devel libffi-devel                mysql-devel postgresql-devel libxml2-devel libxslt-devel openldap-devel                cyrus-sasl-devel pkgconfig mysql unzip
+apt update -y
+apt install -y python3 python3-devel python3-pip gcc gcc-c++ make openssl-devel libffi-devel                mysql-devel postgresql-devel libxml2-devel libxslt-devel openldap-devel                cyrus-sasl-devel pkgconfig mysql unzip
 
 pip3 install flask flask_mysqldb passlib
 
-cd /home/ec2-user
+cd /home/ubuntu
 unzip /tmp/wikiapp-en.zip -d wikiapp
 unzip /tmp/init.sql.zip -d wikiapp
 

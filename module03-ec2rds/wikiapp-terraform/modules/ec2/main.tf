@@ -26,7 +26,7 @@ resource "aws_security_group" "ec2_sg" {
 }
 
 resource "aws_instance" "wikiapp" {
-  ami                    = "ami-08c40ec9ead489470"
+  ami                    = "ami-053b0d53c279acc90"  # ✅ Ubuntu 22.04
   instance_type          = var.instance_type
   subnet_id              = var.public_subnet
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
