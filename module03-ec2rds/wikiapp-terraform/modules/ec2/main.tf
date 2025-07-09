@@ -32,6 +32,12 @@ resource "aws_instance" "wikiapp" {
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   key_name               = var.key_name
 
+resource "local_file" "private_key" {
+  content  = tls_private_key.ssh_key.private_key_pem
+  filename = "${path.module}/wikiapp-key.pem"
+  file_permission = "0400"
+}
+
 user_data = templatefile("${path.module}/user_data.sh", {
   rds_endpoint = var.rds_endpoint
   db_username  = var.db_username
