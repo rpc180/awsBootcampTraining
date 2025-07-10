@@ -18,7 +18,7 @@ wget https://tcb-bootcamps.s3.amazonaws.com/bootcamp-aws/en/wikiapp-en.zip
 wget https://tcb-bootcamps.s3.amazonaws.com/bootcamp-aws/en/module3/dump-en.sql
 
 echo "===== Unzipping wikiapp ====="
-unzip /home/ubuntu/wikiapp-en.zip -d /home/ubuntu/wikiapp
+unzip /home/ubuntu/wikiapp-en.zip -d /home/ubuntu
 
 echo "===== Checking RDS connectivity on port 3306 ====="
 MAX_ATTEMPTS=60
@@ -34,7 +34,7 @@ while ! nc -zv ${rds_endpoint} 3306; do
 done
 
 echo "===== RDS is reachable. Seeding database ====="
-mysql -h "${rds_endpoint}" -u "${db_username}" -p"${db_password}" "${db_name}" < /home/ubuntu/dump-en.sql
+mysql -h "${rds_endpoint}" -u "${db_username}" -p "${db_password}" "${db_name}" < /home/ubuntu/dump-en.sql
 
 echo "===== Starting wikiapp ====="
 cd /home/ubuntu/wikiapp

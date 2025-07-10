@@ -38,5 +38,5 @@ resource "aws_db_instance" "mysql" {
 }
 
 output "endpoint" {
-  value = aws_db_instance.mysql.endpoint
+  value = split(":", aws_db_instance.mysql.endpoint)[0]
 }
