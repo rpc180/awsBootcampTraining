@@ -3,3 +3,7 @@ variable "public_subnet" {}
 variable "key_name" {}
 variable "instance_type" {}
 variable "my_ip" {}
+variable "db_name" {}
+variable "db_username" {}
+variable "db_password" {}
+variable "rds_endpoint" {}
