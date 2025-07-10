@@ -3,5 +3,5 @@ instance_type  = "t2.micro"
 my_ip          = "203.0.113.25/32"
 
 db_username    = "wikiadmin"
-db_password    = "S3cureP@ssword!"
+db_password    = "S3cureP4ssword1"
 db_name        = "wikidb"

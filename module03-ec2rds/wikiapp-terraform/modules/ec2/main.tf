@@ -30,12 +30,17 @@ resource "tls_private_key" "ssh_key" {
   rsa_bits  = 4096
 }
 
+resource "aws_key_pair" "generated_key" {
+  key_name   = var.key_name
+  public_key = tls_private_key.ssh_key.public_key_openssh
+}
+
 resource "aws_instance" "wikiapp" {
-  ami                    = "ami-053b0d53c279acc90"  # ✅ Ubuntu 22.04
+  ami                    = "ami-0557a15b87f6559cf"  # ✅ Ubuntu 22.04
   instance_type          = var.instance_type
   subnet_id              = var.public_subnet
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
-  key_name               = var.key_name
+  key_name               = aws_key_pair.generated_key.key_name
 
 user_data = templatefile("${path.root}/user_data.sh", {
   rds_endpoint = var.rds_endpoint
@@ -61,4 +66,8 @@ output "public_ip" {
 
 output "security_group_id" {
   value = aws_security_group.ec2_sg.id
+}
+
+output "pem_file_path" {
+  value = local_file.private_key.filename
 }
