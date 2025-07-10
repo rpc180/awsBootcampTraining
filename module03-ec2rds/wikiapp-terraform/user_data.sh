@@ -34,7 +34,7 @@ while ! nc -zv ${rds_endpoint} 3306; do
 done
 
 echo "===== RDS is reachable. Seeding database ====="
-mysql -h "${rds_endpoint}" -u "${db_username}" -p "${db_password}" "${db_name}" < /home/ubuntu/dump-en.sql
+mysql -h "${rds_endpoint}" -u "${db_username}" -p"${db_password}" "${db_name}" < /home/ubuntu/dump-en.sql
 
 echo "===== Starting wikiapp ====="
 cd /home/ubuntu/wikiapp
