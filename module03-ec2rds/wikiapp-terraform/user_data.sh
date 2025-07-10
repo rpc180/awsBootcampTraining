@@ -8,7 +8,7 @@ apt-get install -y python3-dev python3-pip build-essential libssl-dev libffi-dev
                    libldap2-dev libsasl2-dev pkg-config mysql-client netcat
 
 echo "===== Installing Python packages ====="
-pip3 install wtforms flask_mysqldb passlib
+pip3 install wtforms "flask<2.3" flask_mysqldb passlib
 
 echo "===== Switching to /home/ubuntu ====="
 cd /home/ubuntu
