@@ -53,5 +53,5 @@ sed -i "s/app.config\['MYSQL_HOST'\] = .*/app.config['MYSQL_HOST'] = '${rds_endp
 
 echo "===== Starting wikiapp ====="
 cd /home/ubuntu/wikiapp
-nohup python3 app.py > /home/ubuntu/wikiapp.log 2>&1 &
+nohup python3 wiki.py > /home/ubuntu/wikiapp.log 2>&1 &
 echo "===== Wikiapp started successfully ====="
