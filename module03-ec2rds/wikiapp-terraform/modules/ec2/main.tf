@@ -25,18 +25,17 @@ resource "aws_security_group" "ec2_sg" {
   }
 }
 
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_instance" "wikiapp" {
   ami                    = "ami-053b0d53c279acc90"  # ✅ Ubuntu 22.04
   instance_type          = var.instance_type
   subnet_id              = var.public_subnet
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   key_name               = var.key_name
-
-resource "local_file" "private_key" {
-  content  = tls_private_key.ssh_key.private_key_pem
-  filename = "${path.module}/wikiapp-key.pem"
-  file_permission = "0400"
-}
 
 user_data = templatefile("${path.root}/user_data.sh", {
   rds_endpoint = var.rds_endpoint
@@ -48,6 +47,12 @@ user_data = templatefile("${path.root}/user_data.sh", {
   tags = {
     Name = "wikiapp-ec2"
   }
+}
+
+resource "local_file" "private_key" {
+  content  = tls_private_key.ssh_key.private_key_pem
+  filename = "${path.module}/wikiapp-key.pem"
+  file_permission = "0400"
 }
 
 output "public_ip" {
