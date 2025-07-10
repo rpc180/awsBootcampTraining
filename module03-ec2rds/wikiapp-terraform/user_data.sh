@@ -36,6 +36,15 @@ done
 echo "===== RDS is reachable. Seeding database ====="
 mysql -h "${rds_endpoint}" -u "${db_username}" -p"${db_password}" "${db_name}" < /home/ubuntu/dump-en.sql
 
+mysql -h ${rds_endpoint} -u ${db_username} -p${db_password} <<EOF
+CREATE USER IF NOT EXISTS 'wiki'@'%' IDENTIFIED BY 'wiki123456';
+GRANT ALL PRIVILEGES ON ${db_name}.* TO 'wiki'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EOF
+
+echo "===== Update wikiapp configuration with RDS Endpoint ====="
+sed -i "s/app.config\['MYSQL_HOST'\] = .*/app.config['MYSQL_HOST'] = '${rds_endpoint}'/" /home/ubuntu/wikiapp/wiki.py
+
 echo "===== Starting wikiapp ====="
 cd /home/ubuntu/wikiapp
 nohup python3 app.py > /home/ubuntu/wikiapp.log 2>&1 &
