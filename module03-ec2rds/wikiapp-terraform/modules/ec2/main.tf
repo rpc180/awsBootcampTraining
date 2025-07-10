@@ -38,7 +38,7 @@ resource "local_file" "private_key" {
   file_permission = "0400"
 }
 
-user_data = templatefile("${path.module}/user_data.sh", {
+user_data = templatefile("${path.root}/user_data.sh", {
   rds_endpoint = var.rds_endpoint
   db_username  = var.db_username
   db_password  = var.db_password
