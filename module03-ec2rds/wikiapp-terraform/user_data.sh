@@ -34,7 +34,13 @@ while ! nc -zv ${rds_endpoint} 3306; do
 done
 
 echo "===== RDS is reachable. Seeding database ====="
-mysql -h "${rds_endpoint}" -u "${db_username}" -p"${db_password}" "${db_name}" < /home/ubuntu/dump-en.sql
+# Check if 'articles' table exists before seeding
+if ! mysql -h ${rds_endpoint} -u ${db_username} -p${db_password} -e "USE ${db_name}; SHOW TABLES LIKE 'articles';" | grep -q 'articles'; then
+    echo "Seeding database from dump-en.sql..."
+    mysql -h ${rds_endpoint} -u ${db_username} -p${db_password} ${db_name} < /home/ubuntu/dump-en.sql
+else
+    echo "Articles table already exists. Skipping DB seed."
+fi
 
 mysql -h ${rds_endpoint} -u ${db_username} -p${db_password} <<EOF
 CREATE USER IF NOT EXISTS 'wiki'@'%' IDENTIFIED BY 'wiki123456';
