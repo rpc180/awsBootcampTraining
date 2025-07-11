@@ -52,6 +52,7 @@ echo "===== Update wikiapp configuration with RDS Endpoint ====="
 sed -i "s/app.config\['MYSQL_HOST'\] = .*/app.config['MYSQL_HOST'] = '${rds_endpoint}'/" /home/ubuntu/wikiapp/wiki.py
 
 echo "===== Starting wikiapp ====="
+[ -f /home/ubuntu/wikiapp.log ] && chown ubuntu:ubuntu /home/ubuntu/wikiapp.log
 cd /home/ubuntu/wikiapp
 nohup python3 wiki.py > /home/ubuntu/wikiapp.log 2>&1 &
 echo "===== Wikiapp started successfully ====="
