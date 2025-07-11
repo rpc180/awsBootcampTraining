@@ -7,3 +7,5 @@ variable "db_name" {}
 variable "db_username" {}
 variable "db_password" {}
 variable "rds_endpoint" {}
+variable "app_path" {}
+variable "sql_path" {}

@@ -81,6 +81,8 @@ user_data = templatefile("${path.root}/user_data.sh", {
   db_username  = var.db_username
   db_password  = var.db_password
   db_name      = var.db_name
+  app_path     = var.app_path
+  sql_path     = var.sql_path
 })
 
   tags = {

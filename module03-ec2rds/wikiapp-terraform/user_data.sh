@@ -14,8 +14,8 @@ echo "===== Switching to /home/ubuntu ====="
 cd /home/ubuntu
 
 echo "===== Downloading application files ====="
-wget https://tcb-bootcamps.s3.amazonaws.com/bootcamp-aws/en/wikiapp-en.zip
-wget https://tcb-bootcamps.s3.amazonaws.com/bootcamp-aws/en/module3/dump-en.sql
+wget ${app_path} 
+wget ${sql_path}
 
 echo "===== Unzipping wikiapp ====="
 unzip /home/ubuntu/wikiapp-en.zip -d /home/ubuntu

@@ -11,3 +11,5 @@ variable "my_ip" {}
 variable "db_username" {}
 variable "db_password" {}
 variable "db_name" {}
+variable "app_path" {}
+variable "sql_path" {}
