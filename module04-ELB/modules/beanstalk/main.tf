@@ -1,3 +1,8 @@
+data "aws_elastic_beanstalk_solution_stack" "python_latest" {
+  name_regex = "^64bit Amazon Linux 2 .* Python 3.*"
+  most_recent = true
+}
+
 variable "aws_region" {}
 variable "app_zip_url" {}
 variable "ec2_key_pair_id" {}
@@ -36,7 +41,7 @@ resource "aws_elastic_beanstalk_application" "app" {
 resource "aws_elastic_beanstalk_environment" "env" {
   name                = "eb-env"
   application         = aws_elastic_beanstalk_application.app.name
-  solution_stack_name = "64bit Amazon Linux 2 v3.5.10 running Python 3.8"
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.python_latest.name
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
@@ -107,9 +112,10 @@ resource "aws_elastic_beanstalk_environment" "env" {
 }
 
 resource "aws_elastic_beanstalk_application_version" "app_version" {
+  lifecycle {
+    ignore_changes = [source_bundle]
+  }
   name        = "v1"
   application = aws_elastic_beanstalk_application.app.name
-  description = "Initial version"
-  bucket      = split("/", var.app_zip_url)[2]
-  key         = join("/", slice(split("/", var.app_zip_url), 3, length(split("/", var.app_zip_url))))
+  description = "Initial version"  
 }
