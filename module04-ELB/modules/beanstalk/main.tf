@@ -113,9 +113,14 @@ resource "aws_elastic_beanstalk_environment" "env" {
 
 resource "aws_elastic_beanstalk_application_version" "app_version" {
   lifecycle {
-    ignore_changes = [source_bundle]
+  source_bundle = {
+    s3_bucket = "tcb-bootcamps"
+    s3_key    = "bootcamp-aws/en/module4/tcb-conf-app-EN.zip"
+  }
   }
   name        = "v1"
   application = aws_elastic_beanstalk_application.app.name
-  description = "Initial version"  
+  description = "Initial version"
+  
+  
 }
