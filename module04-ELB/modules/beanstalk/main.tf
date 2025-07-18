@@ -1,3 +1,8 @@
+variable "aws_region" {}
+variable "app_zip_url" {}
+variable "ec2_key_pair_id" {}
+variable "security_group_id" {}
+
 data "aws_vpc" "default" {
   default = true
 }
@@ -34,7 +39,7 @@ resource "aws_elastic_beanstalk_environment" "env" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = data.aws_key_pair.imported.key_name
+    value     = var.ec2_key_pair_id
   }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
@@ -104,6 +109,6 @@ resource "aws_elastic_beanstalk_application_version" "app_version" {
   name        = "v1"
   application = aws_elastic_beanstalk_application.app.name
   description = "Initial version"
-  bucket      = "tcb-bootcamps"
-  key         = "bootcamp-aws/en/module4/tcb-conf-app-EN.zip"
+  bucket      = split("/", var.app_zip_url)[2]
+  key         = join("/", slice(split("/", var.app_zip_url), 3, length(split("/", var.app_zip_url))))
 }
