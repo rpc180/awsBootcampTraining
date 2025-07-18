@@ -1,4 +1,4 @@
 aws_region       = "us-east-1"
-app_zip_url      = "https://tcb-bootcamps.s3.amazonaws.com/bootcamp-aws/en/module4/tcb-conf-app-EN.zip"
-ec2_key_pair_id  = "key-04134700219991840"
-security_group_id = "sg-083da3e8e582ed472"
+app_zip_url      = "https://PATH-TO-FILE//conf-app-EN.zip"
+ec2_key_pair_id  = "key-rndnumber"
+security_group_id = "sg-rndnumber"
