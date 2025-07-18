@@ -27,6 +27,7 @@ resource "aws_iam_role_policy_attachment" "attach_managed_policies" {
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
   lifecycle {
     create_before_destroy = true
+    prevent_destroy = true
   }
   name = "eb_ec2_instance_profile"
   role = aws_iam_role.beanstalk_service_role.name

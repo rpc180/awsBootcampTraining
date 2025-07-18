@@ -109,6 +109,7 @@ resource "aws_elastic_beanstalk_environment" "env" {
   }
 
   version_label = "v1"
+  depends_on = [aws_elastic_beanstalk_application_version.app_version]
 }
 
 resource "aws_elastic_beanstalk_application_version" "app_version" {
