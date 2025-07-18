@@ -17,6 +17,7 @@ resource "aws_iam_instance_profile" "ec2_instance_profile" {
 }
 
 module "beanstalk" {
+  source = "./modules/beanstalk"
   aws_region        = var.aws_region
   app_zip_url       = var.app_zip_url
   ec2_key_pair_id   = var.ec2_key_pair_id
