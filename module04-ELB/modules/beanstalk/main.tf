@@ -2,6 +2,7 @@ variable "aws_region" {}
 variable "app_zip_url" {}
 variable "ec2_key_pair_id" {}
 variable "security_group_id" {}
+variable "iam_instance_profile" {}
 
 data "aws_vpc" "default" {
   default = true
@@ -49,7 +50,7 @@ resource "aws_elastic_beanstalk_environment" "env" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
-    value     = aws_iam_instance_profile.ec2_instance_profile.name
+    value     = var.iam_instance_profile
   }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"

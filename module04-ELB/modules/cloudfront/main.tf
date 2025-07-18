@@ -1,6 +1,7 @@
+variable "eb_endpoint_url" {}
 resource "aws_cloudfront_distribution" "cf" {
   origin {
-    domain_name = aws_elastic_beanstalk_environment.env.endpoint_url
+    domain_name = var.eb_endpoint_url
     origin_id   = "eb-origin"
     custom_origin_config {
       http_port              = 80
