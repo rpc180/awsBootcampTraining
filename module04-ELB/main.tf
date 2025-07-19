@@ -21,7 +21,7 @@ module "beanstalk" {
   app_zip_url        = var.app_zip_url
   ec2_key_pair_id    = var.ec2_key_pair_id
   security_group_id  = var.security_group_id
-  iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.name
+  iam_instance_profile = module.iam.ec2_instance_profile_name
 }
 
 module "cloudfront" {

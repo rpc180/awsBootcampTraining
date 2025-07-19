@@ -21,13 +21,6 @@ resource "aws_cloudfront_distribution" "cf" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "eb-origin"
 
-    forwarded_values {
-      query_string = false
-      cookies {
-        forward = "none"
-      }
-    }
-
     viewer_protocol_policy = "allow-all"
     cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6" # CachingOptimized
   }

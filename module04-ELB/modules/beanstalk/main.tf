@@ -98,9 +98,9 @@ resource "aws_elastic_beanstalk_environment" "env" {
     value     = "LoadBalanced"
   }
   setting {
-    namespace = "aws:cloudwatch:metrics"
-    name      = "EnhancedHealthReporting"
-    value     = "true"
+    namespace = "aws:elasticbeanstalk:healthreporting:system"
+    name      = "SystemType"
+    value     = "enhanced"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
