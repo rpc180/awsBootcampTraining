@@ -1,8 +1,3 @@
-data "aws_elastic_beanstalk_solution_stack" "python_latest" {
-  name_regex = "^64bit Amazon Linux 2 .* Python 3.*"
-  most_recent = true
-}
-
 variable "aws_region" {}
 variable "app_zip_url" {}
 variable "ec2_key_pair_id" {}
@@ -41,7 +36,7 @@ resource "aws_elastic_beanstalk_application" "app" {
 resource "aws_elastic_beanstalk_environment" "env" {
   name                = "eb-env"
   application         = aws_elastic_beanstalk_application.app.name
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.python_latest.name
+  platform_arn = "arn:aws:elasticbeanstalk:us-east-1::platform/Python 3.11 running on 64bit Amazon Linux 2023/4.6.1"
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
