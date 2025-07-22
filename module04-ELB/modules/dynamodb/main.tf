@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "app_table" {
-  name           = "app-email-table"
+  name           = "users"
   billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "email"
   attribute {
