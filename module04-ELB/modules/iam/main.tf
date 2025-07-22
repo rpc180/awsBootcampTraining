@@ -45,6 +45,7 @@ resource "aws_iam_role_policy_attachment" "attach_managed_policies" {
 resource "aws_iam_role_policy_attachment" "ec2_basic_policies" {
   for_each = toset([
     "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier",
+    "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
     "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
   ])
   role       = aws_iam_role.ec2_instance_role.name
