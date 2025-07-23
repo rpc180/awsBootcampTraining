@@ -24,6 +24,10 @@ data "aws_ami" "amazon_linux" {
   }
 }
 
+data "external" "latest_python_platform" {
+  program = ["bash", "${path.module}/scripts/get_latest_python_platform.sh"]
+}
+
 data "aws_key_pair" "imported" {
   key_name = "PersistentKeyPair"
 }
@@ -36,7 +40,7 @@ resource "aws_elastic_beanstalk_application" "app" {
 resource "aws_elastic_beanstalk_environment" "env" {
   name                = "eb-env"
   application         = aws_elastic_beanstalk_application.app.name
-  platform_arn = "arn:aws:elasticbeanstalk:us-east-1::platform/Python 3.11 running on 64bit Amazon Linux 2023/4.6.1"
+  platform_arn = data.external.latest_python_platform.result["platform_arn"]
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
@@ -102,7 +106,7 @@ resource "aws_elastic_beanstalk_environment" "env" {
     name      = "AWS_REGION"
     value     = var.aws_region
   }
-  
+
   setting {
     namespace = "aws:autoscaling:trigger"
     name      = "MeasureName"
