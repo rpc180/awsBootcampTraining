@@ -10,11 +10,6 @@ module "dynamodb" {
   source = "./modules/dynamodb"
 }
 
-resource "aws_iam_instance_profile" "ec2_instance_profile" {
-  name = "eb_ec2_instance_profile"
-  role = module.iam.beanstalk_service_role_name
-}
-
 module "beanstalk" {
   source             = "./modules/beanstalk"
   aws_region         = var.aws_region

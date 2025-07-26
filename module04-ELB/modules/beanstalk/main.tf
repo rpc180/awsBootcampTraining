@@ -25,7 +25,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 data "external" "latest_python_platform" {
-  program = ["bash", "${path.module}/scripts/get_latest_python_platform.sh"]
+  program = ["bash", "${path.root}/scripts/get_latest_python_platform.sh"]
 }
 
 data "aws_key_pair" "imported" {
